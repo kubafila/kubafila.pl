@@ -1,16 +1,45 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {getEntry} from "astro:content";
 
+
+const homepageCollection = await getEntry("homepage", "homepage")
+const {Content, headings, remarkPluginFrontmatter} = await homepageCollection.render();
 ---
+<style lang="scss">
+  .homepage-wrapper {
+    font-family: sans-serif;
+    max-width: 66%;
+    font-size: 2rem;
 
-<html lang="pl">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>KubaFila.pl</title>
-	</head>
-	<body>
-		<h1>Hello world! </h1>
-	</body>
-</html>
+
+  }
+</style>
+<style is:global>
+    .homepage-wrapper .fancy-text {
+        background: #FF8008; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FFC837, #FF8008); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FFC837, #FF8008); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-fill-color: transparent;
+        background-size: 500% auto;
+        animation: shine 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes shine {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 100% 50%;
+        }
+    }
+</style>
+<BaseLayout>
+    <div class="homepage-wrapper">
+        <Content/>
+    </div>
+</BaseLayout>
